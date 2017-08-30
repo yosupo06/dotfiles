@@ -1,4 +1,9 @@
-alias ls='ls -G'
+if [ "$(uname)" == 'Darwin' ]; then
+	alias ls='ls -G'
+else
+	alias ls='ls --color=auto'
+fi
+
 alias ll='ls -l'
 cdls () {
 	builtin cd "$@" && ls
