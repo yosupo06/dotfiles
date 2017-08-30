@@ -9,6 +9,6 @@ else
 fi
 
 echo '.' $THIS_DIR'/bashrc' >> ~/.bashrc #install bashrc
-cp -r $THIS_DIR'/emacs.d' ~/.emacs.d
+cp -r $THIS_DIR'/emacs.d/.' ~/.emacs.d/
 
 
