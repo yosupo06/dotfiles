@@ -12,3 +12,6 @@ echo '.' $THIS_DIR'/bashrc' >> ~/.bashrc #install bashrc
 cp -r $THIS_DIR'/emacs.d/.' ~/.emacs.d/
 
 
+#git config
+git config --global user.name "Kohei Morita"
+git config --global user.email yosupo06@gmail.com
