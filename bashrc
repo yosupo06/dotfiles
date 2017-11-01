@@ -12,4 +12,4 @@ alias cd='cdls'
 
 # git
 
-alias gitview='git log --oneline --decorate --graph --branches --tags --remotes'
+alias gitview='git log --oneline --decorate --graph --branches --tags'
