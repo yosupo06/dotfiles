@@ -11,4 +11,4 @@ cdls () {
 alias cd='cdls'
 
 alias c='tput reset'
-alias gitview='git log --oneline --decorate --graph --branches --tags'
+
