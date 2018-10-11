@@ -10,6 +10,5 @@ cdls () {
 }
 alias cd='cdls'
 
-# git
-
+alias c='tput reset'
 alias gitview='git log --oneline --decorate --graph --branches --tags'
