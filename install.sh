@@ -2,16 +2,37 @@
 
 THIS_DIR=$(cd $(dirname $0); pwd)
 
+ADD_STR='. '$THIS_DIR'/profile'
 if [ -e ~/.profile ]; then
-    echo '.' $THIS_DIR'/profile' >> ~/.profile #install bash_profile
+    FILE=~/.profile
 else
-    echo '.' $THIS_DIR'/profile' >> ~/.bash_profile #install bash_profile
+    FILE=~/.bash_profile
 fi
 
-echo '.' $THIS_DIR'/bashrc' >> ~/.bashrc #install bashrc
+if grep -sq ^$ADD_STR$ $FILE; then
+    echo 'profile already added, skip'
+else
+    echo 'add profile'
+    echo $ADD_STR >> $FILE
+fi
+
+ADD_STR='. '$THIS_DIR'/bashrc'
+FILE=~/.bashrc
+
+if grep -sq ^$ADD_STR$ $FILE; then
+    echo 'bashrc already added, skip'
+else
+    echo 'add bashrc'
+    echo $ADD_STR >> $FILE
+fi
+
 cp -r $THIS_DIR'/emacs.d/.' ~/.emacs.d/
 
 
 #git config
 git config --global user.name "Kohei Morita"
 git config --global user.email yosupo06@gmail.com
+git config --global alias.st status
+git config --global alias.cob 'checkout -b'
+git config --global alias.sub submodule
+git config --global alias.subup 'submodule update'
