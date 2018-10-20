@@ -32,7 +32,7 @@ cp -r $THIS_DIR'/emacs.d/.' ~/.emacs.d/
 #git config
 git config --global user.name "Kohei Morita"
 git config --global user.email yosupo06@gmail.com
-git config --global credential.helper cache --timeout=3600
+git config --global credential.helper 'cache --timeout=3600'
 
 git config --global alias.st status
 git config --global alias.cob 'checkout -b'
