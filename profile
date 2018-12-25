@@ -3,6 +3,6 @@ export EDITOR='emacs'
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
-    export CC=gcc-8
-    export CXX=g++-8
+    export CC=gcc-7
+    export CXX=g++-7
 fi
