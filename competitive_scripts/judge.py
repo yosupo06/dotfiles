@@ -17,7 +17,7 @@ exec_file = args.exec
 if not args.nobuild:
 	run(['make', '-B', exec_file])
 
-for in_file in glob.glob('tests/*{}*.in'.format(exec_file)):
+for in_file in sorted(glob.glob('tests/*{}*.in'.format(exec_file))):
 	print('##### Start {}'.format(in_file))
 	stdout.flush()
 	t1 = datetime.now()
