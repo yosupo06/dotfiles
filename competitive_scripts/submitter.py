@@ -24,9 +24,6 @@ except Exception as e:
     print('ログイン/問題取得でエラー Exception = {}'.format(e))
 
 else:
-    from subprocess import run
-    from glob import glob
-
     for pl in pls:
         k = pl.alphabet
         if k != pid and pid != 'all':
