@@ -3,7 +3,7 @@
 from subprocess import run, check_call
 from pathlib import Path
 from datetime import datetime
-import argparse
+import os, argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('source', help='source file')
@@ -21,7 +21,7 @@ if not Path('bin').exists():
     Path('bin').mkdir()
 
 if ext == '.cpp':
-    cxxargs = ['g++']
+    cxxargs = [os.getenv('CXX', 'g++')]
     cxxargs.extend(['-std=c++14'])
     cxxargs.extend(['-Wall', '-Wextra', '-Wshadow', '-Wconversion'])
     cxxargs.extend(['-DLOCAL'])
