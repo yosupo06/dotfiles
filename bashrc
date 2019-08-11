@@ -4,6 +4,7 @@ else
 	alias ls='ls --color=auto'
 	alias pbcopy='xsel --clipboard --input'
 	alias pbpaste='xsel --clipboard --output'
+	alias open='xdg-open'
 fi
 
 alias ll='ls -l'
