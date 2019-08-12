@@ -22,7 +22,7 @@ if not Path('bin').exists():
 
 if ext == '.cpp':
     cxxargs = [os.getenv('CXX', 'g++')]
-    cxxargs.extend(['-std=c++14'])
+    cxxargs.extend(['-std=c++17'])
     cxxargs.extend(['-Wall', '-Wextra', '-Wshadow', '-Wconversion'])
     cxxargs.extend(['-DLOCAL'])
     
