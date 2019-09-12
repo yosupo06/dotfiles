@@ -3,6 +3,7 @@
 from subprocess import run, check_call
 from pathlib import Path
 from datetime import datetime
+from sys import stderr
 import os, argparse
 
 parser = argparse.ArgumentParser()
@@ -33,7 +34,7 @@ if ext == '.cpp':
     cxxargs.extend([str(src)])
     if args.opt:
         cxxargs.extend(['-O'])
-    print('compile cpp: {}'.format(' '.join(cxxargs)))
+    print('compile cpp: {}'.format(' '.join(cxxargs)), file=stderr)
     check_call(cxxargs)
 else:
     assert False, "unknown file type"
