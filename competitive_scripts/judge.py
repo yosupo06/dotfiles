@@ -29,7 +29,7 @@ if ext == '.cpp':
     
     cxxargs.extend(['-g'])
     cxxargs.extend(['-fsanitize=address,undefined', '-fno-sanitize-recover'])
-    cxxargs.extend(['-fno-omit-frame-pointer'])
+    cxxargs.extend(['-fno-omit-frame-pointer', '-fvisibility=hidden'])
     cxxargs.extend(['-o', 'bin/{}'.format(stem)])  # output
     cxxargs.extend([str(src)])
     if args.opt:
