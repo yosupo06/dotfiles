@@ -32,7 +32,7 @@ else:
 
         try:
             src = ''
-            with open('../{}.cpp'.format(k)) as f:
+            with open('{}.cpp'.format(k)) as f:
                 src = f.read()
             at.submit_source_code(cn, pl, 'C++14 (GCC 5.4.1)', src)
         except Exception as e:

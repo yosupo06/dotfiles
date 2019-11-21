@@ -13,7 +13,8 @@ def build(pdir: Path):
 
     cxxargs = [os.getenv('CXX', 'g++')]
     cxxargs.extend(['-std=c++17'])
-    cxxargs.extend(['-Wall', '-Wextra', '-Wshadow', '-Wconversion'])
+    cxxargs.extend(['-Wall', '-Wextra', '-Wshadow',
+                    '-Wconversion', '-Wno-unknown-pragmas'])
     cxxargs.extend(['-DLOCAL'])
 
     cxxargs.extend(['-g'])
