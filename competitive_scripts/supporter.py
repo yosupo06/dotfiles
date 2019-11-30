@@ -8,6 +8,7 @@ from pathlib import Path
 from subprocess import check_call, run
 from sys import exit
 
+algbase = Path(os.environ['HOME']) / 'Programs' / 'Algorithm'
 
 def build(pdir: Path):
 
@@ -15,6 +16,7 @@ def build(pdir: Path):
     cxxargs.extend(['-std=c++17'])
     cxxargs.extend(['-Wall', '-Wextra', '-Wshadow',
                     '-Wconversion', '-Wno-unknown-pragmas'])
+    cxxargs.extend(['-I{}'.format(str(algbase / 'src'))])
     cxxargs.extend(['-DLOCAL'])
 
     cxxargs.extend(['-g'])
@@ -93,8 +95,9 @@ def command_test(args):
 
 
 def command_submit(args):
-    pdir = Path(args.problem)
-    check_call(['oj', 's', 'main.cpp', '--no-open', '-w', '0'], cwd=pdir)
+    pdir = Path(args.problem)    
+    check_call([str(algbase / 'expander/expander.py'), 'main.cpp', 'main_combined.cpp'], cwd=pdir)
+    check_call(['oj', 's', 'main_combined.cpp', '--no-open', '-w', '0'], cwd=pdir)
 
 
 if __name__ == "__main__":
