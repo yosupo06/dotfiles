@@ -85,6 +85,7 @@ def get_url(info, problem):
             if 'url_buffer' not in info:
                 info['url_buffer'] = dict()
             info['url_buffer'][problem] = purl
+            toml.dump(info, open('info.toml', 'w'))
             return purl
     else:
         logger.error('No problem: {}'.format(problem))
@@ -130,19 +131,18 @@ def command_submit(args):
 
 if __name__ == "__main__":
     basicConfig(
-        level=getenv('LOG_LEVEL', 'DEBUG'),
-        format="%(asctime)s %(levelname)s %(name)s : %(message)s"
+        level=getenv('LOG_LEVEL', 'INFO'),
+        format="%(message)s"
     )
 
-    parser = argparse.ArgumentParser(epilog='''\
-init example:        
-  supporter.py i atcoder agc001 {a..f}
-  supporter.py i codeforces 1025 {A..F}
-  supporter.py i opencup 12345 {A..K}''', formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers()
 
     # init
-    parser_init = subparsers.add_parser('i', help='init command')
+    parser_init = subparsers.add_parser('i', help='init command', epilog='''\
+init example:
+  supporter.py i https://atcoder.jp/contests/abc147 {A..F}
+  ''', formatter_class=argparse.RawDescriptionHelpFormatter)
     parser_init.add_argument('url', help='Contest URL')
     parser_init.add_argument('problems', nargs='+',
                              help='Problem Names({a..f})')
