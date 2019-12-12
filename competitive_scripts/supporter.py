@@ -4,7 +4,6 @@ import os
 import argparse
 import shutil
 import toml
-import onlinejudge
 from pathlib import Path
 from subprocess import check_call, run
 from sys import exit
@@ -27,7 +26,7 @@ def build(src: Path):
     cxxargs.extend(['-DLOCAL'])
 
     cxxargs.extend(['-g'])
-    cxxargs.extend(['-fsanitize=address,undefined', '-fno-sanitize-recover'])
+    cxxargs.extend(['-fsanitize=address,undefined'])
     cxxargs.extend(['-fno-omit-frame-pointer'])
     cxxargs.extend(['-o', src.stem])
     cxxargs.extend([src.name])
@@ -46,6 +45,8 @@ def ensure(msg):
 
 
 def command_init(args):
+    import onlinejudge
+
     contest = onlinejudge.dispatch.contest_from_url(args.url)
     offline = (contest is None)
     base = None
@@ -68,11 +69,13 @@ def command_init(args):
     info['contest_url'] = args.url
     toml.dump(info, open(base / 'info.toml', 'w'))
 
-
 def get_url(info, problem):
     if problem in info.get('url_buffer', []):
         return info['url_buffer'][problem]
     url = info['contest_url']
+    
+    import onlinejudge
+    
     contest = onlinejudge.dispatch.contest_from_url(url)
     if not contest:
         logger.error(
