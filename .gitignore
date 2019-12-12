@@ -1,2 +1,5 @@
 .*
 !.gitignore
+a
+main
+*.dSYM

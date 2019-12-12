@@ -16,7 +16,6 @@ logger = getLogger(__name__)  # type: Logger
 
 algbase = Path(os.environ['HOME']) / 'Programs' / 'Algorithm'
 
-
 def build(src: Path):
     logger.info('Build {}'.format(src))
     cxxargs = [os.getenv('CXX', 'g++')]
@@ -46,14 +45,21 @@ def ensure(msg):
 
 
 def command_init(args):
-    contest = onlinejudge.dispatch.contest_from_url(args.url)
-    offline = (contest is None)
-    base = None
-    if isinstance(contest, onlinejudge.service.atcoder.AtCoderContest):
-        base = Path.cwd() / ('atcoder-' + contest.contest_id)
+    if args.site not in ['atcoder', 'codeforces', 'opencup']:
+        raise Exception()
+
+    offline = args.site in ['opencup']
+    if args.site == 'atcoder':
+        if any([s.isupper() for s in args.problems]):
+            ensure('Try to make uppercase problem {}'.format(args.problems))
+    elif args.site == 'codeforces':
+        if any([s.islower() for s in args.problems]):
+            ensure('Try to make lowercase problem')
+
+    base = Path(args.site + "-" + args.contest)
     base.mkdir()
 
-    src = algbase / "src/base.cpp"
+    src = Path.home() / Path("Programs/Algorithm/src/base.cpp")
 
     for prob in args.problems:
         pdir = base / prob
@@ -63,69 +69,42 @@ def command_init(args):
             cdir = pdir / 'test'
             cdir.mkdir()
 
+    # make info.toml
     info = dict()
     info['offline'] = offline
-    info['contest_url'] = args.url
+    if args.site == 'atcoder':
+        info['url'] = 'https://atcoder.jp/contests/{contest}/tasks/{contest}_{{id}}'.format(
+            contest=args.contest)
+    elif args.site == 'codeforces':
+        info['url'] = 'https://codeforces.com/contest/{contest}/problem/{{id}}'.format(
+            contest=args.contest)
+    elif args.site == 'opencup':
+        pass
+    else:
+        raise Exception()
     toml.dump(info, open(base / 'info.toml', 'w'))
 
 
-def get_url(info, problem):
-    if problem in info.get('url_buffer', []):
-        return info['url_buffer'][problem]
-    url = info['contest_url']
-    contest = onlinejudge.dispatch.contest_from_url(url)
-    if not contest:
-        logger.error(
-            'No contest check contest_url of info.toml: {}'.format(url))
-        raise
-    for p in contest.list_problems():
-        purl = p.get_url()
-        if purl.lower().endswith(problem.lower()):
-            logger.info('Problem name {} -> {}'.format(problem, p.problem_id))
-            if 'url_buffer' not in info:
-                info['url_buffer'] = dict()
-            info['url_buffer'][problem] = purl
-            return purl
-    else:
-        logger.error('No problem: {}'.format(problem))
-
-
-def command_build(args):
-    src = Path(args.source)
-    if src.is_dir():
-        src /= 'main.cpp'
-    build(src)
-
 
 def command_test(args):
-    pdir = Path(args.problem)
     info = toml.load('info.toml')
-    build(pdir / 'main.cpp')
-    if not info['offline']:
-        url = get_url(info, pdir.name)
-        if not (pdir / "test").exists():
-            logger.info('download')
-            check_call(['oj', 'd', url], cwd=pdir)
-
+    pdir = Path(args.problem)
+    build(pdir)
     cmd = []
     if info['offline']:
         cmd = ['oj', 't', '-c', './main', '-d', './test']
     else:
         cmd = ['oj', 't', '-c', './main']
+        url = info['url'].format(id=pdir.name)
+        if not (pdir / "test").exists():
+            check_call(['oj', 'd', url], cwd=pdir)
     run(cmd, cwd=pdir)
 
 
 def command_submit(args):
-    pdir = Path(args.problem)
-    info = toml.load('info.toml')
-    url = get_url(info, pdir.name)
-    check_call([str(algbase / 'expander/expander.py'),
-                'main.cpp', 'main_combined.cpp'], cwd=pdir)
-    if info['offline']:
-        pass
-    else:
-        check_call(['oj', 's', 'main_combined.cpp',
-                    '--no-open', '-w', '0'], cwd=pdir)
+    pdir = Path(args.problem)    
+    check_call([str(algbase / 'expander/expander.py'), 'main.cpp', 'main_combined.cpp'], cwd=pdir)
+    check_call(['oj', 's', 'main_combined.cpp', '--no-open', '-w', '0'], cwd=pdir)
 
 
 if __name__ == "__main__":
@@ -143,15 +122,16 @@ init example:
 
     # init
     parser_init = subparsers.add_parser('i', help='init command')
-    parser_init.add_argument('url', help='Contest URL')
+    parser_init.add_argument('site', help='Contest Site(atcoder)')
+    parser_init.add_argument('contest', help='Contest Name(agc001)')
     parser_init.add_argument('problems', nargs='+',
                              help='Problem Names({a..f})')
     parser_init.set_defaults(handler=command_init)
 
     # build
-    parser_build = subparsers.add_parser('b', help='build command')
-    parser_build.add_argument('source', help='Source/Folder Name')
-    parser_build.set_defaults(handler=command_build)
+#    parser_build = subparsers.add_parser('b', help='build command')
+#    parser_build.add_argument('source', help='Problem Name')
+#    parser_build.set_defaults(handler=command_build)
 
     # test
     parser_test = subparsers.add_parser('t', help='test command')
