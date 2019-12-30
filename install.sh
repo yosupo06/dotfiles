@@ -1,13 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 THIS_DIR=$(cd $(dirname $0); pwd)
 
 ADD_STR='. '$THIS_DIR'/profile'
-if [ -e ~/.profile ]; then
-    FILE=~/.profile
-else
-    FILE=~/.bash_profile
-fi
+FILE=~/.zprofile
 
 if grep -sq ^$ADD_STR$ $FILE; then
     echo 'profile already added, skip'
@@ -16,13 +12,13 @@ else
     echo $ADD_STR >> $FILE
 fi
 
-ADD_STR='. '$THIS_DIR'/bashrc'
-FILE=~/.bashrc
+ADD_STR='. '$THIS_DIR'/zshrc'
+FILE=~/.zshrc
 
 if grep -sq ^$ADD_STR$ $FILE; then
-    echo 'bashrc already added, skip'
+    echo 'zshrc already added, skip'
 else
-    echo 'add bashrc'
+    echo 'add zshrc'
     echo $ADD_STR >> $FILE
 fi
 
