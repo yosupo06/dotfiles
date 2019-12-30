@@ -14,9 +14,11 @@ cdls () {
 }
 alias cd='cdls'
 
+autoload -Uz compinit
+compinit
+
 autoload -U promptinit
 autoload -U colors && colors
-
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
 PROMPT="${p_color}[%?]%{${reset_color}%}[%~]
-🐙: "
+🐟: "
