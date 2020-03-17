@@ -20,5 +20,10 @@ compinit
 autoload -U promptinit
 autoload -U colors && colors
 local p_color="%(?.%{${fg[cyan]}%}.%{${fg[magenta]}%})"
-PROMPT="${p_color}[%?]%{${reset_color}%}[%~]
+if [[ "$(uname)" == 'Darwin' ]]; then
+	PROMPT="${p_color}[%?]%{${reset_color}%}[%~]
 🐟: "
+else
+	PROMPT="${p_color}[%?]%{${reset_color}%}[%~]
+🐙: "
+fi
