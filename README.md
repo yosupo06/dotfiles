@@ -1,3 +1,6 @@
 ```
-pip3 install --user atcoder-tools
+ansible-playbook playbook.yml --ask-become-pass -v
 ```
+
+WSL verified
+OS X ???

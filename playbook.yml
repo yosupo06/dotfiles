@@ -1,0 +1,46 @@
+- hosts: localhost
+  tasks:
+    - name: Install zsh
+      become: true
+      apt:
+        name: zsh
+    - name: Change user shell to zsh
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: zsh
+
+    - name: Register zprofile
+      blockinfile:
+        create: true
+        path: ~/.zprofile
+        block: |
+          . {{ (ansible_env.PWD, "zprofile") | path_join }}
+    - name: Register zshrc
+      blockinfile:
+        create: true
+        path: ~/.zshrc
+        block: |
+          . {{ (ansible_env.PWD, "zshrc") | path_join }}
+
+    # git configs
+    - git_config:
+        name: user.name
+        scope: global
+        value: Kohei Morita
+    - git_config:
+        name: user.email
+        scope: global
+        value: yosupo06@gmail.com
+    - git_config:
+        name: alias.st
+        scope: global
+        value: status
+    - git_config:
+        name: alias.cob
+        scope: global
+        value: checkout -b
+    - git_config:
+        name: alias.view
+        scope: global
+        value: log --oneline --decorate --graph --branches --tags
