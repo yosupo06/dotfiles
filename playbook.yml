@@ -2,7 +2,7 @@
   tasks:
     - name: Install zsh
       become: true
-      apt:
+      package:
         name: zsh
     - name: Change user shell to zsh
       become: true
@@ -44,3 +44,46 @@
         name: alias.view
         scope: global
         value: log --oneline --decorate --graph --branches --tags
+    - git_config:
+        name: credential.helper
+        scope: global
+        value: store
+
+    # install docker
+    - name: Install packages for Docker
+      become: true
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+    - name: Add docker GPG
+      become: true
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Add docker repo
+      become: true
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+    - name: Install docker
+      become: true
+      apt:
+        name: docker-ce
+    - name: Add user to docker group
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: true
+    - name: Restard docker
+      become: true
+      service:
+        name: docker
+        state: restarted
