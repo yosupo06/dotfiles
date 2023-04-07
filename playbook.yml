@@ -1,5 +1,20 @@
 - hosts: localhost
   tasks:
+    # essential packages
+    - name: Install g++
+      become: true
+      package:
+        name: g++
+    - name: Install golang
+      become: true
+      package:
+        name: golang-go
+    - name: Install npm
+      become: true
+      package:
+        name: npm
+        
+    # setup zsh
     - name: Install zsh
       become: true
       package:
@@ -9,7 +24,6 @@
       user:
         name: "{{ ansible_user_id }}"
         shell: zsh
-
     - name: Register zprofile
       blockinfile:
         create: true
@@ -22,6 +36,7 @@
         path: ~/.zshrc
         block: |
           . {{ (ansible_env.PWD, "zshrc") | path_join }}
+
 
     # git configs
     - git_config:
@@ -48,6 +63,12 @@
         name: credential.helper
         scope: global
         value: store
+    - git_config:
+        name: core.excludesFile
+        scope: global
+        value: |-
+          {{ (ansible_env.PWD, "gitignore_global") | path_join }}
+          
 
     # install docker
     - name: Install packages for Docker
@@ -87,3 +108,30 @@
       service:
         name: docker
         state: restarted
+
+    # install gcloud cli
+    - name: Install packages for gcloud CLI
+      become: true
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - gnupg
+    - name: Add gcloud GPG
+      become: true
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+    - name: Add gcloud repo
+      become: true
+      apt_repository:
+        repo: deb https://packages.cloud.google.com/apt cloud-sdk main
+        state: present
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+    - name: Install gcloud cli
+      become: true
+      apt:
+        name: google-cloud-cli
