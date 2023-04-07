@@ -134,4 +134,6 @@
     - name: Install gcloud cli
       become: true
       apt:
-        name: google-cloud-cli
+        name:
+          - google-cloud-cli
+          - google-cloud-cli-cloud-run-proxy
