@@ -4,4 +4,5 @@ export EDITOR='emacs'
 
 THIS_DIR=$(dirname $0)
 
-export PATH=$THIS_DIR/competitive_scripts:$THIS_DIR/scripts:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH

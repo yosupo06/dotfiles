@@ -1,18 +1,10 @@
 - hosts: localhost
   tasks:
-    # essential packages
-    - name: Install g++
+    # basic packages
+    - name: Install basic packages
       become: true
       package:
-        name: g++
-    - name: Install golang
-      become: true
-      package:
-        name: golang-go
-    - name: Install npm
-      become: true
-      package:
-        name: npm
+        name: [g++, golang-go, npm, emacs]
         
     # setup zsh
     - name: Install zsh
