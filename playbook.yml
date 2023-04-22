@@ -4,7 +4,7 @@
     - name: Install basic packages
       become: true
       package:
-        name: [g++, golang-go, npm, emacs]
+        name: [g++, cmake, golang-go, npm, emacs]
         
     # setup zsh
     - name: Install zsh
