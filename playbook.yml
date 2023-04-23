@@ -4,8 +4,29 @@
     - name: Install basic packages
       become: true
       package:
-        name: [g++, cmake, golang-go, npm, emacs]
-        
+        name: [g++, cmake, golang-go, emacs]
+
+    # install npm
+    - name: Add nodejs GPG
+      become: true
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+    - name: Add nodejs repo
+      become: true
+      apt_repository:
+        repo: deb https://deb.nodesource.com/node_18.x jammy main
+        state: present
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+    - name: Install nodejs
+      become: true
+      apt:
+        name:
+          - nodejs
+
     # setup zsh
     - name: Install zsh
       become: true
@@ -79,7 +100,7 @@
     - name: Add docker repo
       become: true
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
         state: present
     - name: Update apt
       become: true
