@@ -4,7 +4,11 @@
     - name: Install basic packages
       become: true
       package:
-        name: [g++, cmake, golang-go, emacs]
+        name: [g++, gdb, cmake, golang-go, emacs, python3-dev]
+    - name: Install postgre-db packages
+      become: true
+      package:
+        name: [libpq-dev]
 
     # install npm
     - name: Add nodejs GPG

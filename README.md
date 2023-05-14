@@ -1,4 +1,5 @@
 ```
+sudo apt install ansible
 ansible-playbook playbook.yml --ask-become-pass -v
 ```
 
