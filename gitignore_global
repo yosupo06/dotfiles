@@ -3,3 +3,4 @@ go.work.sum
 .vscode
 .venv
 .mypy_cache
+__pycache__
