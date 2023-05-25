@@ -1,0 +1,21 @@
+- hosts: localhost
+  tasks:
+    - name: Add HashiCorp GPG
+      become: true
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
+    - name: Add HashiCorp repo
+      become: true
+      apt_repository:
+        repo: deb [arch=amd64] https://apt.releases.hashicorp.com jammy main
+        state: present
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+    - name: Install packer
+      become: true
+      apt:
+        name:
+          - packer

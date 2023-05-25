@@ -1,6 +1,6 @@
 ```
 sudo apt install ansible
-ansible-playbook playbook.yml --ask-become-pass -v
+ansible-playbook wsl.yml --ask-become-pass -v
 ```
 
 WSL verified

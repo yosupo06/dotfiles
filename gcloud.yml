@@ -29,3 +29,4 @@
           - google-cloud-cli
           - google-cloud-cli-cloud-run-proxy
           - google-cloud-sdk-gke-gcloud-auth-plugin
+          - kubectl
