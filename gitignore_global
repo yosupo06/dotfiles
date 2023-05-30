@@ -3,4 +3,5 @@ go.work.sum
 .vscode
 .venv
 .mypy_cache
+.idea
 __pycache__
