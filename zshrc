@@ -1,3 +1,9 @@
+export HISTSIZE=100000
+export SAVEHIST=100000
+export HISTFILE=~/.zsh_history
+
+setopt hist_ignore_dups
+
 get_os () {
 	if [[ "$(uname)" == 'Darwin' ]]; then
 		echo "MAC"

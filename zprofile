@@ -1,4 +1,3 @@
-export SAVEHIST=100000
 export EDITOR='emacs'
 
 THIS_DIR=$(dirname $0)
