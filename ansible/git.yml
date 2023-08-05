@@ -1,0 +1,39 @@
+- hosts: localhost
+  tasks:
+    # alias
+    - git_config:
+        name: alias.st
+        scope: global
+        value: status
+    - git_config:
+        name: alias.cob
+        scope: global
+        value: checkout -b
+    - git_config:
+        name: alias.view
+        scope: global
+        value: log --oneline --decorate --graph --branches --tags
+    # personal settings
+    - name: Register gitconfig_personal
+      blockinfile:
+        create: true
+        path: ~/.gitconfig
+        block: |
+          [includeIf "gitdir:~/personal/"]
+            path = .gitconfig-personal
+    - git_config:
+        name: core.excludesFile
+        scope: file
+        file: ~/.gitconfig-personal
+        value: |-
+          {{ (ansible_env.PWD, "../config/gitignore-global") | path_join }}
+    - git_config:
+        name: user.name
+        scope: file
+        file: ~/.gitconfig-personal
+        value: Kohei Morita
+    - git_config:
+        name: user.email
+        scope: file
+        file: ~/.gitconfig-personal
+        value: yosupo06@gmail.com

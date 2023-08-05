@@ -1,0 +1,14 @@
+- hosts: localhost
+  tasks:
+    - name: Register zprofile
+      blockinfile:
+        create: true
+        path: ~/.zprofile
+        block: |
+          . {{ (ansible_env.PWD, "../config/zprofile") | path_join }}
+    - name: Register zshrc
+      blockinfile:
+        create: true
+        path: ~/.zshrc
+        block: |
+          . {{ (ansible_env.PWD, "../config/zshrc") | path_join }}

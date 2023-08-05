@@ -1,3 +1,17 @@
+- hosts: localhost
+  tasks:
+    # setup zsh
+    - name: Install zsh
+      become: true
+      package:
+        name: zsh
+    - name: Change user shell to zsh
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: zsh
+
+- import_playbook: ansible/zsh.yml
 - import_playbook: base.yml
 - import_playbook: gcloud.yml
 - import_playbook: packer.yml
