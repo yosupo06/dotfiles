@@ -1,0 +1,32 @@
+- hosts: localhost
+  tasks:
+    - name: Install basic packages
+      become: true
+      package:
+        name:
+          - g++
+          - gdb
+          - cmake
+          - golang-go
+          - emacs
+          - python3-dev
+          - tmux
+    - name: Install postgre-db packages
+      become: true
+      package:
+        name: [libpq-dev]
+
+    - name: Install zsh
+      become: true
+      package:
+        name: zsh
+    - name: Change user shell to zsh
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: zsh
+
+- import_playbook: docker.yml
+- import_playbook: gcloud.yml
+- import_playbook: nodejs.yml
+- import_playbook: packer.yml
