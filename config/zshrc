@@ -23,19 +23,14 @@ OS=`get_os`
 
 echo "OS detected: ${OS}"
 
-if [[ $OS == "MAC" ]]; then
-	alias ls='ls -G'
-else
-	alias ls='ls --color=auto'
-	alias c='tput reset'
-fi
-
 if [[ $OS == "Ubuntu" ]]; then
 	alias pbcopy='xsel --clipboard --input'
 	alias pbpaste='xsel --clipboard --output'
 	alias open='xdg-open'
+	alias c='tput reset'
 fi
 
+alias ls='ls --color=auto'
 alias ll='ls -l'
 cdls () {
 	builtin cd "$@" && ls
