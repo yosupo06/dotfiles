@@ -1,0 +1,9 @@
+- hosts: localhost
+  tasks:
+    - name: Create config_supporter link
+      file:
+          src: |-
+            {{ (ansible_env.PWD, "../../config/config_supporter.toml") | path_join }}
+          dest: |-
+            ~/yosupo/procon/config_supporter.toml
+          state: link

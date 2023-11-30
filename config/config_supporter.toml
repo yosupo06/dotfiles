@@ -1,0 +1,30 @@
+template_src = "~/yosupo/procon/library/Algorithm/src/base.cpp"
+contest_template = [
+    "~/yosupo/dotfiles/config/supporter_template/.vscode"
+]
+compile_debug = """
+{{.CXX}} {{.Source}} -o {{.Output}} \
+-std=c++20 -g -DLOCAL -march=native \
+-Wall -Wextra -Wshadow -Wconversion -Wno-sign-conversion \
+-fsanitize=address,undefined -fno-omit-frame-pointer \
+-I ~/yosupo/procon/library/Algorithm/src \
+-I ~/yosupo/procon/library/ac-library \
+-I ~/yosupo/procon/library/yosupo-library
+"""
+compile_opt = """
+{{.CXX}} {{.Source}} -o {{.Output}} \
+-std=c++20 -g -DLOCAL -O2 -march=native \
+-Wall -Wextra -Wshadow -Wconversion -Wno-sign-conversion \
+-I ~/yosupo/procon/library/Algorithm/src \
+-I ~/yosupo/procon/library/ac-library \
+-I ~/yosupo/procon/library/yosupo-library
+"""
+bundle_source = """
+~/yosupo/procon/library/yosupo-library/expander.py {{.Source}} -c
+--lib ~/yosupo/procon/library/Algorithm/src
+--lib ~/yosupo/procon/library/ac-library
+--lib ~/yosupo/procon/library/yosupo-library
+> {{.Output}}
+"""
+
+pbcopy = "pbcopy"

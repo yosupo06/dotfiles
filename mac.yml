@@ -1,2 +1,1 @@
-- import_playbook: ansible/zsh.yml
-- import_playbook: ansible/git.yml
+- import_playbook: ansible/setup-config.yml

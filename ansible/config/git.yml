@@ -14,26 +14,27 @@
         scope: global
         value: log --oneline --decorate --graph --branches --tags
     # personal settings
-    - name: Register gitconfig_personal
+    - name: Register gitconfig-yosupo
       blockinfile:
         create: true
         path: ~/.gitconfig
+        marker: "# {mark} yosupo gitconfig block"
         block: |
-          [includeIf "gitdir:~/personal/"]
-            path = .gitconfig-personal
+          [includeIf "gitdir:~/yosupo/"]
+            path = .gitconfig-yosupo
     - git_config:
         name: core.excludesFile
         scope: file
-        file: ~/.gitconfig-personal
+        file: ~/.gitconfig-yosupo
         value: |-
-          {{ (ansible_env.PWD, "../config/gitignore-global") | path_join }}
+          {{ (ansible_env.PWD, "../../config/gitignore-global") | path_join }}
     - git_config:
         name: user.name
         scope: file
-        file: ~/.gitconfig-personal
+        file: ~/.gitconfig-yosupo
         value: Kohei Morita
     - git_config:
         name: user.email
         scope: file
-        file: ~/.gitconfig-personal
+        file: ~/.gitconfig-yosupo
         value: yosupo06@gmail.com
