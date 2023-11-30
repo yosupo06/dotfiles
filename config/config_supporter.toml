@@ -9,7 +9,8 @@ compile_debug = """
 -fsanitize=address,undefined -fno-omit-frame-pointer \
 -I ~/yosupo/procon/library/Algorithm/src \
 -I ~/yosupo/procon/library/ac-library \
--I ~/yosupo/procon/library/yosupo-library
+-I ~/yosupo/procon/library/yosupo-library/src \
+-I ~/yosupo/procon/library/fastfps/src
 """
 compile_opt = """
 {{.CXX}} {{.Source}} -o {{.Output}} \
@@ -17,13 +18,15 @@ compile_opt = """
 -Wall -Wextra -Wshadow -Wconversion -Wno-sign-conversion \
 -I ~/yosupo/procon/library/Algorithm/src \
 -I ~/yosupo/procon/library/ac-library \
--I ~/yosupo/procon/library/yosupo-library
+-I ~/yosupo/procon/library/yosupo-library/src \
+-I ~/yosupo/procon/library/fastfps/src
 """
 bundle_source = """
 ~/yosupo/procon/library/yosupo-library/expander.py {{.Source}} -c
 --lib ~/yosupo/procon/library/Algorithm/src
 --lib ~/yosupo/procon/library/ac-library
---lib ~/yosupo/procon/library/yosupo-library
+--lib ~/yosupo/procon/library/yosupo-library/src
+--lib ~/yosupo/procon/library/fastfps/src
 > {{.Output}}
 """
 
