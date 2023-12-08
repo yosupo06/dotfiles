@@ -1,0 +1,68 @@
+{
+    "tasks": [
+        {
+            "type": "process",
+            "label": "supporter: test",
+            "command": "/Users/koheim/go/bin/supporter",
+            "args": [
+                "t",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "process",
+            "label": "supporter: test (opt)",
+            "command": "/Users/koheim/go/bin/supporter",
+            "args": [
+                "t",
+                "${file}",
+                "-O"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "test"
+        },
+        {
+            "type": "process",
+            "label": "supporter: submit",
+            "command": "/Users/koheim/go/bin/supporter",
+            "args": [
+                "s",
+                "${file}"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "none",
+            "problemMatcher": []
+        },
+        {
+            "type": "process",
+            "label": "supporter: build",
+            "command": "/Users/koheim/go/bin/supporter",
+            "args": [
+                "b",
+                "${file}",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ],
+    "version": "2.0.0"
+}

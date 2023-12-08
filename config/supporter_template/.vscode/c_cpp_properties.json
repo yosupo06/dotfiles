@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "includePath": [
+                "${default}",
+                "~/yosupo/procon/library/ac-library",
+                "~/yosupo/procon/library/yosupo-library/src",
+                "~/yosupo/procon/library/Algorithm/src",
+                "~/yosupo/procon/library/fastfps/src"
+            ],
+            "cStandard": "c99",
+            "cppStandard": "c++20",
+        }
+    ],
+    "version": 4
+}
