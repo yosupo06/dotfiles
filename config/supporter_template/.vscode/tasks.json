@@ -3,7 +3,7 @@
         {
             "type": "process",
             "label": "supporter: test",
-            "command": "/Users/koheim/go/bin/supporter",
+            "command": "supporter",
             "args": [
                 "t",
                 "${file}"
@@ -19,7 +19,7 @@
         {
             "type": "process",
             "label": "supporter: test (opt)",
-            "command": "/Users/koheim/go/bin/supporter",
+            "command": "supporter",
             "args": [
                 "t",
                 "${file}",
@@ -33,7 +33,7 @@
         {
             "type": "process",
             "label": "supporter: submit",
-            "command": "/Users/koheim/go/bin/supporter",
+            "command": "supporter",
             "args": [
                 "s",
                 "${file}"
@@ -47,7 +47,7 @@
         {
             "type": "process",
             "label": "supporter: build",
-            "command": "/Users/koheim/go/bin/supporter",
+            "command": "supporter",
             "args": [
                 "b",
                 "${file}",
