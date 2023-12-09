@@ -23,6 +23,12 @@ OS=`get_os`
 
 echo "OS detected: ${OS}"
 
+if [[ $OS == "WSL" ]]; then
+	alias pbcopy='xsel --clipboard --input'
+	alias pbpaste='xsel --clipboard --output'
+	alias c='tput reset'
+fi
+
 if [[ $OS == "Ubuntu" ]]; then
 	alias pbcopy='xsel --clipboard --input'
 	alias pbpaste='xsel --clipboard --output'
