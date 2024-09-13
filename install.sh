@@ -8,4 +8,6 @@ if [ "$REMOTE_CONTAINERS" != "true" ]; then
 
     git config --global alias.st "status"
     git config --global alias.cob "checkout -b"
+
+    git config --global init.defaultBranch main    
 fi
