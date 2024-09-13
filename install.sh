@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 cp oh-my-zsh/custom/alias.zsh $HOME/.oh-my-zsh/custom
+cp oh-my-zsh/custom/export.zsh $HOME/.oh-my-zsh/custom
 
 if [ "$REMOTE_CONTAINERS" != "true" ]; then
     git config --global user.name "Kohei Morita"
