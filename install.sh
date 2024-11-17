@@ -11,4 +11,6 @@ if [ "$REMOTE_CONTAINERS" != "true" ]; then
     git config --global alias.cob "checkout -b"
 
     git config --global init.defaultBranch main    
+
+    git config --global push.autoSetupRemote true
 fi
